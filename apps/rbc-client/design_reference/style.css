@@ -1,0 +1,997 @@
+/* ================================================================== */
+/* MOBILE-FIRST CSS - RBC Online Banking */
+/* ================================================================== */
+
+/* Global Resets and Typography */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 1rem;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #1f1f1f;
+    background-color: #ffffff;
+}
+
+/* ================================================================== */
+/* FLEX CONTAINER - Mobile First (Single Column) */
+/* ================================================================== */
+
+.flex-container-full {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ================================================================== */
+/* SPLIT SECTIONS - Mobile Layout (Stacked) */
+/* ================================================================== */
+
+.split {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Left side (Branding) - Visible on mobile at top */
+.split-left {
+    display: flex;
+    order: 1;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+/* Right side (Form) - Full width on mobile */
+.split-right {
+    background-color: #ffffff;
+    padding: 20px;
+    order: 2;
+    min-height: auto;
+    width: 100%;
+    overflow-x: hidden;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+    overflow-y: auto;
+    max-height: 100vh;
+}
+
+/* ================================================================== */
+/* BRANDING SECTION - Styles for when visible */
+/* ================================================================== */
+
+.branding-section {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Main Dynamic Branding Container */
+.maindynamicbranding {
+    width: 100%;
+    height: 164px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-image: url('./public/signin-landing.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.header-content-full {
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Paragraph wrapper for logo */
+.header-content-full > p {
+    margin: 0 0 20px 0;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+}
+
+svg.rbc-logo-full,
+svg.rbc-logo {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.title-full {
+    color: #ffffff;
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+}
+
+.access-medium {
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.43;
+}
+
+/* ================================================================== */
+/* FORM WRAPPER - Mobile Container */
+/* ================================================================== */
+
+.form-wrapper {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ================================================================== */
+/* CHILD WRAPPER - Groups form and notices together */
+/* ================================================================== */
+
+.child {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.childheight {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.child.childheight {
+    min-height: 0;
+}
+
+/* ================================================================== */
+/* NOTICES WRAPPER - Groups all notice sections */
+/* ================================================================== */
+
+.notices-div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ================================================================== */
+/* FORM STYLES - Sign In Form */
+/* ================================================================== */
+
+.sign-in-form {
+    width: 100%;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+.form-field {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #1f1f1f;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 300;
+    color: #1f1f1f;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #006ac3;
+    box-shadow: 0 0 0 1px #006ac3;
+}
+
+/* ================================================================== */
+/* UTILITY CLASSES - Flexbox and Width */
+/* ================================================================== */
+
+.d-flex {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+/* ================================================================== */
+/* LOCK ICON STYLES */
+/* ================================================================== */
+
+.lock-icon {
+    float: right;
+    color: #444;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.lock-icon:hover {
+    color: #333;
+}
+
+.lock-icon-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    fill: currentColor;
+}
+
+/* ================================================================== */
+/* SCREEN READER ONLY TEXT */
+/* ================================================================== */
+
+.rbc-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ================================================================== */
+/* CHECKBOX STYLES */
+/* ================================================================== */
+
+.form-field .rbc-checkbox {
+    margin: 20px 0;
+    outline: none;
+}
+
+.rbc-checkbox-wrapper {
+    display: flex;
+    align-items: flex-start;
+}
+
+.rbc-checkbox-input {
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.rbc-checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    user-select: none;
+    gap: 10px;
+}
+
+.rbc-checkbox-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    border: 1px solid #cccccc;
+    border-radius: 2px;
+    background-color: #ffffff;
+    transition: all 0.2s;
+}
+
+.rbc-checkbox-input:checked + .rbc-checkbox-label .rbc-checkbox-icon {
+    background-color: #006ac3;
+    border-color: #006ac3;
+}
+
+.rbc-checkbox-input:checked + .rbc-checkbox-label .rbc-checkbox-icon::after {
+    content: '';
+    width: 12px;
+    height: 8px;
+    border-left: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    transform: rotate(-45deg);
+}
+
+.tool-tip-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.help-icon-svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: #006ac3;
+    fill: currentColor;
+}
+
+.rbc-checkbox-text {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: #1f1f1f;
+    line-height: 1.4;
+}
+
+.text-icon-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.text-icon-table tbody tr {
+    vertical-align: top;
+    display: flex;
+    flex-direction: column;
+}
+
+.text-icon-table td {
+    padding: 0;
+    width: 100%;
+    position: relative;
+}
+
+.text-icon-table td:first-child {
+    width: 100%;
+}
+
+.text-icon-table td:last-child {
+    width: 100%;
+}
+
+.saveClient {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: #1f1f1f;
+    line-height: 1.4;
+}
+
+.help-button {
+    background: white;
+    border: none;
+    outline: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    position: relative;
+    top: 2px;
+}
+
+.help-button:hover {
+    opacity: 0.8;
+}
+
+.help-drawer {
+    display: none;
+    position: absolute;
+    bottom: -220px;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    width: 100%;
+    max-width: 300px;
+}
+
+.help-drawer.open {
+    display: block;
+}
+
+.help-drawer-content {
+    padding: 20px;
+    max-width: 400px;
+}
+
+.help-drawer-content .tool-tip-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.help-drawer-content .tool-tip-label h4 {
+    font-weight: 500;
+    color: #252525;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.help-drawer-content p {
+    color: #252525;
+    font-weight: 300;
+    font-size: 0.9rem;
+    margin: 0 0 12px 0;
+    line-height: 1.4;
+}
+
+/* ================================================================== */
+/* SUBMIT BUTTON STYLES */
+/* ================================================================== */
+
+.submit-btn {
+    width: 100%;
+    padding: 14px 32px;
+    margin-top: 20px;
+    background-color: #006ac3;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: inherit;
+    letter-spacing: 0;
+    line-height: 1.5;
+    border: 1px solid #006ac3;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    position: relative;
+}
+
+.submit-btn:hover {
+    background-color: #005a9f;
+    border-color: #005a9f;
+}
+
+.submit-btn:active {
+    background-color: #004a7f;
+}
+
+/* ================================================================== */
+/* FORM LINKS - Recovery and Enrollment */
+/* ================================================================== */
+
+.form-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eeeeee;
+}
+
+.link {
+    color: #006ac3;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 400;
+    transition: color 0.2s;
+}
+
+.link:hover {
+    color: #005a9f;
+    text-decoration: underline;
+}
+
+/* ================================================================== */
+/* NOTICES SECTION */
+/* ================================================================== */
+
+.notices-section {
+    margin-top: 0;
+    padding-top: 20px;
+    border-top: 1px solid #eeeeee;
+    flex-shrink: 0;
+}
+
+.notices-div .notices-section:first-child {
+    margin-top: 20px;
+}
+
+.notices-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #1f1f1f;
+    margin: 0 0 15px 0;
+}
+
+.notices-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.notices-list li {
+    margin-bottom: 10px;
+}
+
+.notice-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: #006ac3;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+    padding: 8px 0;
+}
+
+.notice-link:hover {
+    color: #005a9f;
+    text-decoration: underline;
+}
+
+.notice-text {
+    flex: 1;
+}
+
+.popup-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: #006ac3;
+    fill: currentColor;
+}
+
+/* ================================================================== */
+/* ONLINE SERVICES SECTION */
+/* ================================================================== */
+
+.online-services {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.divider-padding {
+    margin: 0 calc(-1 * 20px) 0 calc(-1 * 20px);
+    padding: 16px 20px;
+}
+
+.other-services-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: #006ac3;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 400;
+    padding: 12px 0;
+    transition: color 0.2s;
+}
+
+.other-services-link:hover {
+    color: #005a9f;
+}
+
+.menu-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.services-drawer {
+    display: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 400px;
+    background-color: #ffffff;
+    border-left: 1px solid #eeeeee;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.services-drawer:target {
+    display: flex;
+    flex-direction: column;
+}
+
+.drawer-overlay {
+    display: none;
+}
+
+.services-drawer:target ~ .drawer-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.drawer-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1f1f1f;
+}
+
+.drawer-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    color: #1f1f1f;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.drawer-close:hover {
+    opacity: 0.7;
+}
+
+.services-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.service-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 20px;
+    color: #1f1f1f;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 400;
+    transition: background-color 0.2s;
+}
+
+.service-item:hover {
+    background-color: #f5f5f5;
+}
+
+.service-item:active {
+    background-color: #eeeeee;
+}
+
+.service-item span {
+    flex: 1;
+}
+
+.chevron-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-left: 12px;
+    color: #006ac3;
+    fill: currentColor;
+}
+
+.chevron-path {
+    fill: currentColor;
+}
+
+.rbc-divider {
+    height: 1px;
+    background-color: #eeeeee;
+}
+
+.rbc-stack-wrapper {
+    margin: 0 -20px;
+}
+
+.rbc-divider-top {
+    margin-bottom: 0;
+}
+
+.rbc-divider-bottom {
+    margin-top: 0;
+}
+
+.rbc-stack {
+    display: flex;
+    flex-direction: column;
+}
+
+.rbc-stack-item {
+    padding: 0;
+}
+
+.rbc-menu-item-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    color: #1f1f1f;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 400;
+    transition: background-color 0.2s;
+}
+
+.rbc-menu-item-link:hover {
+    background-color: #f5f5f5;
+}
+
+.rbc-menu-item-link:active {
+    background-color: #eeeeee;
+}
+
+.rbc-menu-item-text {
+    flex: 1;
+}
+
+/* ================================================================== */
+/* FOOTER STYLES */
+/* ================================================================== */
+
+.footer {
+    width: 100%;
+    flex-shrink: 0;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.common-footer {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    font-size: 0.85rem;
+    color: #1f1f1f;
+}
+
+.common-footer-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.pre-copy-right {
+    font-size: 0.85rem;
+    color: #666666;
+    margin: 15px 0 5px 0;
+}
+
+.copy-right {
+    font-size: 0.85rem;
+    color: #666666;
+    margin: 0 0 10px 0;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 15px;
+    padding: 0 0px;
+    box-sizing: border-box;
+}
+
+.footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #006ac3;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+}
+
+.footer-link:hover {
+    color: #005a9f;
+    text-decoration: underline;
+}
+
+.external-link-icon {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+}
+
+.footer-margin {
+    margin-top: 15px;
+}
+
+/* ================================================================== */
+/* TABLET BREAKPOINT - Start showing branding side by side */
+/* ================================================================== */
+
+@media (min-width: 768px) {
+    .flex-container-full {
+        flex-direction: row;
+        height: 100vh;
+    }
+
+    .split {
+        flex: 1;
+        height: 100vh;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    .split-left {
+        display: flex;
+        order: 1;
+        width: 50%;
+        flex: 0 0 50%;
+        padding: 0;
+    }
+
+    .split-right {
+        padding: 40px 30px;
+        order: 2;
+        overflow-y: auto;
+        max-height: 100vh;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+    }
+
+    .form-wrapper {
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .child.childheight {
+        flex: 1;
+    }
+
+    .maindynamicbranding {
+        height: 100%;
+    }
+
+    .header-content-full {
+        padding: 40px;
+    }
+
+    .header-content-full > p {
+        width: 35px;
+        height: 35px;
+    }
+
+    .title-full {
+        font-size: 1.875rem;
+        font-weight: 400;
+    }
+
+    .access-medium {
+        font-size: 0.95rem;
+        font-weight: 400;
+    }
+
+    .text-icon-table tbody tr {
+        display: table-row;
+    }
+
+    .text-icon-table td {
+        display: table-cell;
+    }
+
+    .divider-padding {
+        margin: 0 0 15px 0;
+    }
+
+    .common-footer {
+        padding: 30px 20px;
+        max-width: 400px;
+    }
+}
+
+/* ================================================================== */
+/* DESKTOP BREAKPOINT - Optimize for larger screens */
+/* ================================================================== */
+
+@media (min-width: 1024px) {
+    .split-right {
+        padding: 60px 40px;
+    }
+
+    .form-wrapper {
+        max-width: 430px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .child.childheight {
+        flex: 1;
+    }
+
+    .maindynamicbranding {
+        height: 100%;
+    }
+
+    .header-content-full {
+        padding: 60px 40px;
+    }
+
+    .header-content-full > p {
+        width: 90px;
+        height: 90px;
+    }
+
+    .title-full {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        font-weight: 400;
+    }
+
+    .access-medium {
+        font-size: 1rem;
+        font-weight: 400;
+    }
+
+    .divider-padding {
+        margin: 0 0 15px 0;
+    }
+
+    .common-footer {
+        padding: 30px 20px;
+        max-width: 430px;
+    }
+}

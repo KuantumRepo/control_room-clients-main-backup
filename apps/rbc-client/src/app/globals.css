@@ -1,0 +1,122 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-roboto);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.25rem;
+  /* 4px */
+  --background: #ffffff;
+  --foreground: #1f1f1f;
+
+  /* RBC Colors */
+  --primary: #006ac3;
+  --primary-foreground: #ffffff;
+  --secondary: #005a9f;
+  --secondary-foreground: #ffffff;
+  --accent: #fedf01;
+  --accent-foreground: #1f1f1f;
+
+  --muted: #f5f5f5;
+  --muted-foreground: #666666;
+
+  --card: #ffffff;
+  --card-foreground: #1f1f1f;
+  --popover: #ffffff;
+  --popover-foreground: #1f1f1f;
+
+  --border: #cccccc;
+  --input: #cccccc;
+  --ring: #006ac3;
+
+  --destructive: #ef4444;
+
+  --chart-1: #006ac3;
+  --chart-2: #005a9f;
+  --chart-3: #fedf01;
+  --chart-4: #1f1f1f;
+  --chart-5: #666666;
+
+  --sidebar: #f5f5f5;
+  --sidebar-foreground: #1f1f1f;
+  --sidebar-primary: #006ac3;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eeeeee;
+  --sidebar-accent-foreground: #1f1f1f;
+  --sidebar-border: #cccccc;
+  --sidebar-ring: #006ac3;
+}
+
+.dark {
+  /* Dark mode not primarily supported by RBC design, but keeping safe defaults */
+  --background: #1f1f1f;
+  --foreground: #ffffff;
+  --card: #2a2a2a;
+  --card-foreground: #ffffff;
+  --popover: #2a2a2a;
+  --popover-foreground: #ffffff;
+  --primary: #006ac3;
+  --primary-foreground: #ffffff;
+  --secondary: #005a9f;
+  --secondary-foreground: #ffffff;
+  --muted: #333333;
+  --muted-foreground: #aaaaaa;
+  --accent: #fedf01;
+  --accent-foreground: #1f1f1f;
+  --destructive: #7f1d1d;
+  --border: #444444;
+  --input: #444444;
+  --ring: #006ac3;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-weight: 300;
+    /* RBC uses light font weight */
+  }
+}

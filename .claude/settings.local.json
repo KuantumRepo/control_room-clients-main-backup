@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npx shadcn-ui@latest init:*)",
+      "Bash(npx shadcn@latest init --defaults --skip-git)",
+      "Bash(npx shadcn@latest init:*)",
+      "Bash(npm run build:*)",
+      "Bash(dir /s /b \"C:\\Users\\Modmin\\Desktop\\Project vroom vroom\\Control_Room\")",
+      "Bash(findstr:*)",
+      "Bash(dir \"c:\\Users\\Modmin\\Desktop\\Project vroom vroom\\Clients\\bmo\\bmo-client\\src\" /s)",
+      "Bash(powershell:*)",
+      "Bash(cd:*)",
+      "Bash(cat:*)",
+      "Bash(find:*)",
+      "Bash(pnpm list:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
