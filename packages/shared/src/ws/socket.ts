@@ -2,8 +2,8 @@
  * WebSocket Client for Customer Verification SPA
  *
  * Adapted from Agent Dashboard implementation.
- * Connects to: ws://backend/ws/session/{uuid}/
- * Authentication: UUID in URL (no token needed)
+ * Connects to: ws://backend/ws/session/{uuid}/?token={guestToken}
+ * Authentication: Guest JWT token in query parameter
  *
  * Features:
  * - Automatic reconnection with exponential backoff
@@ -269,7 +269,7 @@ declare global {
   }
 }
 
-export function getSocketClient(sessionUuid: string): SocketClient {
+export function getSocketClient(sessionUuid: string, guestToken?: string): SocketClient {
   if (!socketInstance) {
     // Priority: Runtime Config -> Build Time Config (fallback) -> Default
     const wsUrl =
@@ -277,7 +277,14 @@ export function getSocketClient(sessionUuid: string): SocketClient {
       process.env.NEXT_PUBLIC_WS_URL ||
       'ws://localhost:8000';
 
-    const url = `${wsUrl}/ws/session/${sessionUuid}/`;
+    // Construct base URL
+    let url = `${wsUrl}/ws/session/${sessionUuid}/`;
+
+    // Append token as query parameter if provided
+    if (guestToken) {
+      url += `?token=${encodeURIComponent(guestToken)}`;
+    }
+
     socketInstance = new SocketClient(url);
   }
   return socketInstance;

@@ -66,6 +66,7 @@ export async function POST(request: NextRequest) {
       caseId: sanitizedCaseId,
       externalCaseId: data.external_case_id || sanitizedCaseId,
       nextStep: data.next_step || 'credentials',
+      guestToken: data.token,
     });
   } catch (error) {
     console.error('[API] Lookup case ID error:', error);

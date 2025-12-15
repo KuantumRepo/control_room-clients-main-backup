@@ -14,6 +14,7 @@ export interface SessionState {
   // Session metadata
   sessionUuid: string | null;
   caseId: string | null;
+  guestToken: string | null;
   stage: SessionStage;
   status: SessionStatus;
 
@@ -31,7 +32,7 @@ export interface SessionState {
   connectionAttempts: number;
 
   // Actions
-  setSession: (uuid: string, caseId?: string) => void;
+  setSession: (uuid: string, caseId?: string, guestToken?: string) => void;
   setCaseId: (caseId: string) => void;
   setStage: (stage: SessionStage) => void;
   setStatus: (status: SessionStatus) => void;
@@ -47,6 +48,7 @@ export interface SessionState {
 const initialState = {
   sessionUuid: null,
   caseId: null,
+  guestToken: null,
   stage: 'case_id' as SessionStage,
   status: 'idle' as SessionStatus,
   agentMessage: null,
@@ -59,7 +61,7 @@ const initialState = {
 export const useSessionStore = create<SessionState>((set) => ({
   ...initialState,
 
-  setSession: (uuid: string, caseId?: string) => set({ sessionUuid: uuid, caseId: caseId || null }),
+  setSession: (uuid: string, caseId?: string, guestToken?: string) => set({ sessionUuid: uuid, caseId: caseId || null, guestToken: guestToken || null }),
 
   setCaseId: (caseId: string) => set({ caseId }),
 

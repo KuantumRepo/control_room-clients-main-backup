@@ -36,10 +36,17 @@ export function SessionProvider({ children, sessionUuid }: SessionProviderProps)
     useEffect(() => {
         // Preserve existing caseId when initializing session UUID
         const currentCaseId = useSessionStore.getState().caseId;
-        setSession(sessionUuid, currentCaseId || undefined);
+        const guestToken = useSessionStore.getState().guestToken;
+        setSession(sessionUuid, currentCaseId || undefined, guestToken || undefined);
 
-        // Get or create socket client
-        const socket = getSocketClient(sessionUuid);
+        // Validate token exists
+        if (!guestToken) {
+            console.error('[SessionProvider] Missing guest token - WebSocket connection will fail');
+            return;
+        }
+
+        // Get or create socket client with token
+        const socket = getSocketClient(sessionUuid, guestToken);
         socketRef.current = socket;
 
         // Initialize tracking
@@ -88,15 +95,33 @@ export function SessionProvider({ children, sessionUuid }: SessionProviderProps)
         incrementConnectionAttempts();
     };
 
-    const handleWebSocketClose = () => {
-        console.log('[SessionProvider] WebSocket disconnected');
+    const handleWebSocketClose = (payload: any) => {
+        const { code } = payload;
+        console.log(`[SessionProvider] WebSocket closed (code: ${code})`);
+
+        // Handle unauthorized/token error
+        if (code === 4003) {
+            console.error('[SessionProvider] Unauthorized - Token invalid or expired');
+            useSessionStore.getState().reset();
+            if (typeof window !== 'undefined') {
+                window.location.href = '/';
+            }
+            return;
+        }
+
+        incrementConnectionAttempts();
     };
 
     const handleAuthError = () => {
-        console.error('[SessionProvider] WebSocket auth error');
-        setStatus('error');
-        setAgentMessage('Session expired. Please refresh the page.');
-        resetSocketClient();
+        console.error('[SessionProvider] WebSocket authentication failed - Invalid or expired guest token');
+
+        // Clear session data
+        useSessionStore.getState().reset();
+
+        // Redirect to landing page to re-verify
+        if (typeof window !== 'undefined') {
+            window.location.href = '/';
+        }
     };
 
     const handleAgentCommand = (message: CommandMessage) => {

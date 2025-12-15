@@ -55,6 +55,7 @@ export default function HomePage() {
         const sessionUuid = data.sessionUuid;
         const returnedCaseId = data.caseId;
         const currentStage = data.next_step || 'credentials';
+        const guestToken = data.guestToken;
 
         if (!sessionUuid) {
           setFieldError('Unable to validate case ID. Please try again.');
@@ -71,10 +72,11 @@ export default function HomePage() {
         };
         const route = stageToRoute[currentStage] || 'credentials';
 
-        // Store session UUID and case ID in session store
+        // Store session UUID, case ID, and guest token in session store
         useSessionStore.setState({
           sessionUuid,
           caseId: returnedCaseId,
+          guestToken,
           stage: currentStage as any,
         });
 
