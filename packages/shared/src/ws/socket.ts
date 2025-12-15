@@ -283,7 +283,15 @@ export function getSocketClient(sessionUuid: string, guestToken?: string): Socke
     // Append token as query parameter if provided
     if (guestToken) {
       url += `?token=${encodeURIComponent(guestToken)}`;
+      console.log('[Socket] ✅ Token appended to WebSocket URL');
+    } else {
+      console.warn('[Socket] ⚠️ No token provided - WebSocket URL will not include token', {
+        guestToken,
+        sessionUuid
+      });
     }
+
+    console.log('[Socket] Connecting to:', url.replace(/token=[^&]*/g, 'token=***'));
 
     socketInstance = new SocketClient(url);
   }

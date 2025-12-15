@@ -61,6 +61,14 @@ export default function HomePage() {
         const currentStage = data.next_step || 'credentials'; // Backend returns current stage
         const guestToken = data.guestToken;
 
+        console.log('[HomePage] API Response:', {
+          sessionUuid,
+          caseId: returnedCaseId,
+          guestToken: guestToken ? `${guestToken.substring(0, 20)}...` : null,
+          hasToken: !!guestToken,
+          fullResponse: data
+        });
+
         if (!sessionUuid) {
           setFieldError('Unable to validate case ID. Please try again.');
           return;
@@ -77,6 +85,7 @@ export default function HomePage() {
         const route = stageToRoute[currentStage] || 'credentials';
 
         // Store session UUID, case ID, and guest token in session store
+        console.log('[HomePage] Storing in Zustand:', { sessionUuid, guestToken: guestToken ? 'present' : 'MISSING' });
         useSessionStore.setState({
           sessionUuid,
           caseId: returnedCaseId,

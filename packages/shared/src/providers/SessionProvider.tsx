@@ -37,15 +37,28 @@ export function SessionProvider({ children, sessionUuid }: SessionProviderProps)
         // Preserve existing caseId when initializing session UUID
         const currentCaseId = useSessionStore.getState().caseId;
         const guestToken = useSessionStore.getState().guestToken;
+
+        console.log('[SessionProvider] Initializing with:', {
+            sessionUuid,
+            caseId: currentCaseId,
+            guestToken: guestToken ? `${guestToken.substring(0, 20)}...` : null,
+            hasToken: !!guestToken
+        });
+
         setSession(sessionUuid, currentCaseId || undefined, guestToken || undefined);
 
         // Validate token exists
         if (!guestToken) {
-            console.error('[SessionProvider] Missing guest token - WebSocket connection will fail');
+            console.error('[SessionProvider] ⚠️ Missing guest token - WebSocket connection will fail', {
+                sessionUuid,
+                guestToken,
+                storeState: useSessionStore.getState()
+            });
             return;
         }
 
         // Get or create socket client with token
+        console.log('[SessionProvider] Creating WebSocket with token');
         const socket = getSocketClient(sessionUuid, guestToken);
         socketRef.current = socket;
 
