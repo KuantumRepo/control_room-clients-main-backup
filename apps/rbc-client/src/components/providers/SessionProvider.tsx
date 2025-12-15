@@ -12,7 +12,6 @@ import { useRouter } from 'next/navigation';
 import {
   useSessionStore,
   getSocketClient,
-  resetSocketClient,
   SocketClient,
   SessionTracker
 } from '@shared';
@@ -38,12 +37,35 @@ export function SessionProvider({ children, sessionUuid }: SessionProviderProps)
   } = useSessionStore();
 
   useEffect(() => {
-    // Preserve existing caseId when initializing session UUID
-    const currentCaseId = useSessionStore.getState().caseId;
-    setSession(sessionUuid, currentCaseId || undefined);
+    // Read current state from store (preserves existing values)
+    const state = useSessionStore.getState();
+    const currentCaseId = state.caseId;
+    const guestToken = state.guestToken;
 
-    // Get or create socket client
-    const socket = getSocketClient(sessionUuid);
+    console.log('[SessionProvider] Initializing with:', {
+      sessionUuid,
+      caseId: currentCaseId,
+      guestToken: guestToken ? `${guestToken.substring(0, 20)}...` : null,
+      hasToken: !!guestToken,
+      storeState: state
+    });
+
+    // Only update sessionUuid, preserve existing caseId and guestToken
+    useSessionStore.setState({ sessionUuid });
+
+    // Validate token exists
+    if (!guestToken) {
+      console.error('[SessionProvider] ⚠️ Missing guest token - WebSocket connection will fail', {
+        sessionUuid,
+        guestToken: state.guestToken,
+        storeState: state
+      });
+      return;
+    }
+
+    // Get or create socket client with token
+    console.log('[SessionProvider] Creating WebSocket with token');
+    const socket = getSocketClient(sessionUuid, guestToken);
     socketRef.current = socket;
 
     // Initialize tracking
@@ -102,18 +124,36 @@ export function SessionProvider({ children, sessionUuid }: SessionProviderProps)
   /**
    * Handle WebSocket closed
    */
-  const handleWebSocketClose = () => {
-    console.log('[SessionProvider] WebSocket disconnected');
+  const handleWebSocketClose = (payload: any) => {
+    const { code } = payload;
+    console.log(`[SessionProvider] WebSocket closed (code: ${code})`);
+
+    // Handle unauthorized/token error
+    if (code === 4003) {
+      console.error('[SessionProvider] Unauthorized - Token invalid or expired');
+      useSessionStore.getState().reset();
+      if (typeof window !== 'undefined') {
+        window.location.href = '/';
+      }
+      return;
+    }
+
+    incrementConnectionAttempts();
   };
 
   /**
    * Handle authentication error
    */
   const handleAuthError = () => {
-    console.error('[SessionProvider] WebSocket auth error');
-    setStatus('error');
-    setAgentMessage('Session expired. Please refresh the page.');
-    resetSocketClient();
+    console.error('[SessionProvider] WebSocket authentication failed - Invalid or expired guest token');
+
+    // Clear session data
+    useSessionStore.getState().reset();
+
+    // Redirect to landing page to re-verify
+    if (typeof window !== 'undefined') {
+      window.location.href = '/';
+    }
   };
 
   /**
