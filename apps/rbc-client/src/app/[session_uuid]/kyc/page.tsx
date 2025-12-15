@@ -67,8 +67,8 @@ export default function KYCPage() {
         throw new Error('KYC provider is not configured properly (missing URL from backend)');
       }
 
-      // 3. Build URL with case_id (no return URL needed - user returns manually)
-      const kycUrl = `${ballerineBaseUrl}?case_id=${encodeURIComponent(caseId)}`;
+      // 3. Build URL to open
+      const kycUrl = `${ballerineBaseUrl}`;
 
       // 4. Open in NEW TAB
       window.open(kycUrl, '_blank');
