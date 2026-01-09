@@ -1,39 +1,39 @@
 export default function CompanyInfoPage() {
     return (
-        <div className="min-h-screen bg-white p-8 font-sans text-gray-800">
-            <header className="mb-12 border-b pb-4">
-                <h1 className="text-3xl font-bold">Company Information</h1>
+        <div className="max-w-3xl mx-auto px-4 py-12 font-sans">
+            <header className="mb-10 border-b border-[#e5e7eb] pb-6">
+                <h1 className="text-3xl font-bold text-[#0c2074]">Company Information</h1>
             </header>
 
-            <main className="max-w-3xl space-y-8">
+            <main className="space-y-10 text-[#2e2e32]">
                 <section>
-                    <h2 className="text-xl font-semibold mb-3">About Us</h2>
-                    <p className="leading-relaxed">
-                        We are a leading provider of secure verification services. Our platform ensures compliance and trust for businesses worldwide.
-                        Founded with a mission to streamline identity verification, we uphold the highest standards of security and user privacy.
+                    <h2 className="text-xl font-semibold mb-4 text-[#0c2074]">About U.S. Bank</h2>
+                    <p className="leading-relaxed text-[#555]">
+                        Since 1863, we've been helping our customers, employees and communities make the most of what's possible.
+                        Headquartered in Minneapolis, we are a financial services holding company with businesses across the United States
+                        and in key international markets.
                     </p>
                 </section>
 
                 <section>
-                    <h2 className="text-xl font-semibold mb-3">Services</h2>
-                    <ul className="list-disc pl-5 space-y-2">
-                        <li>Identity Verification</li>
-                        <li>Document Authentication</li>
-                        <li>Compliance Management</li>
-                        <li>Fraud Prevention</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2 className="text-xl font-semibold mb-3">Contact</h2>
-                    <p>
-                        For business inquiries, please reach out to our sales team or visit our main corporate website.
+                    <h2 className="text-xl font-semibold mb-4 text-[#0c2074]">Our Mission</h2>
+                    <p className="leading-relaxed text-[#555]">
+                        We invest our hearts and minds to power human potential.
                     </p>
                 </section>
 
-                <div className="mt-12 p-4 bg-gray-50 rounded text-sm text-gray-500">
-                    <p>&copy; {new Date().getFullYear()} Verification Services. All rights reserved.</p>
-                </div>
+                <section>
+                    <hr className="border-[#e5e7eb]" />
+                    <div className="mt-8">
+                        <p className="text-sm text-[#555]">
+                            For more details, please visit our main website at <a href="https://www.usbank.com" className="text-[#0a41c5] underline hover:no-underline" target="_blank" rel="noopener noreferrer">usbank.com</a>.
+                        </p>
+                    </div>
+                </section>
+
+                <footer className="pt-8 text-sm text-[#7a7a95]">
+                    &copy; {new Date().getFullYear()} U.S. Bank. All rights reserved.
+                </footer>
             </main>
         </div>
     );

@@ -21,7 +21,7 @@ export default async function SessionLayout({ children, params }: SessionLayoutP
   return (
     <BotGuard>
       <SessionProvider sessionUuid={session_uuid}>
-        <div className="min-h-screen bg-background">
+        <div>
           {children}
         </div>
       </SessionProvider>

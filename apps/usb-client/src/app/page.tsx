@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { currentBrand } from '@/config/branding';
 import { useSessionStore } from '@shared';
 import { BotGuard } from '@/components/security/BotGuard';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Loader2 } from 'lucide-react';
 
 export default function HomePage() {
   const router = useRouter();
@@ -126,7 +126,13 @@ export default function HomePage() {
           </div>
         )}
 
-        <button type="submit" className="btn btn-primary" disabled={isLoading}>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={isLoading}
+          style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}
+        >
+          {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
           {isLoading ? 'Processing...' : 'Continue'}
         </button>
 

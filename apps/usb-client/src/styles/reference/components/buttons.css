@@ -26,6 +26,26 @@
     background: linear-gradient(-180deg, #235ae4, #0c2074);
 }
 
+.btn-primary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Loading spinner animation utility */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.btn-spinner {
+    animation: spin 1s linear infinite;
+}
+
 .link-group {
     margin-top: 24px;
     display: flex;

