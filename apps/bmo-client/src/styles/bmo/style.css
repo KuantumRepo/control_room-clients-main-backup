@@ -179,6 +179,12 @@ img {
     align-items: start;
 }
 
+/* Centered Single Card Layout - for status pages */
+.centered-container {
+    max-width: 480px;
+    margin: 0 auto;
+}
+
 /* Login Card */
 .login-card {
     background-color: var(--bmo-white);
