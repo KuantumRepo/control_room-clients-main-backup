@@ -615,3 +615,205 @@ img {
     font-size: 14px;
     opacity: 0.9;
 }
+
+/* ============================================
+   Form Text Styles (consistent across pages)
+   ============================================ */
+.form-description {
+    color: var(--anz-white);
+    font-size: 14px;
+    opacity: 0.9;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.form-list {
+    color: var(--anz-white);
+    font-size: 14px;
+    opacity: 0.9;
+    margin-left: 20px;
+    margin-bottom: 16px;
+    line-height: 1.6;
+}
+
+.form-list li {
+    margin-bottom: 4px;
+}
+
+.form-note {
+    color: var(--anz-white);
+    font-size: 12px;
+    text-align: center;
+    margin-top: 8px;
+    opacity: 0.7;
+}
+
+.form-footer {
+    color: var(--anz-white);
+    font-size: 13px;
+    text-align: center;
+    margin-top: 24px;
+    opacity: 0.8;
+}
+
+.form-link-button {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    padding: 8px;
+    background: none;
+    border: none;
+    color: var(--anz-white);
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: var(--font-family);
+}
+
+.form-link-button:hover {
+    opacity: 0.8;
+}
+
+.form-link-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ============================================
+   KYC Checklist Styles
+   ============================================ */
+.kyc-checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px 0;
+    color: var(--anz-white);
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.kyc-checklist li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.kyc-checklist li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--anz-white);
+    opacity: 0.7;
+}
+
+/* ============================================
+   Popup Blocked Fallback Styles
+   ============================================ */
+.popup-blocked-notice {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--border-radius);
+    padding: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.popup-fallback-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--anz-white);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid var(--anz-white);
+    border-radius: var(--border-radius);
+    transition: background-color 0.2s;
+}
+
+.popup-fallback-link:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* ============================================
+   Status Page Styles (completed/terminated)
+   ============================================ */
+.status-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.status-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 24px auto;
+    color: var(--anz-white);
+    opacity: 0.9;
+}
+
+.status-icon-wrapper svg {
+    width: 48px;
+    height: 48px;
+}
+
+.status-icon-wrapper.warning {
+    opacity: 0.85;
+}
+
+.status-message-primary {
+    color: var(--anz-white);
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.status-message-secondary {
+    color: var(--anz-white);
+    font-size: 14px;
+    opacity: 0.9;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.status-footer {
+    color: var(--anz-white);
+    font-size: 13px;
+    text-align: center;
+    margin-top: 32px;
+    opacity: 0.8;
+}
+
+/* Responsive adjustments for status pages */
+@media (max-width: 768px) {
+    .status-container {
+        padding: 16px 0;
+    }
+
+    .status-icon-wrapper {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 20px;
+    }
+
+    .status-icon-wrapper svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    .status-message-primary {
+        font-size: 15px;
+    }
+
+    .status-message-secondary {
+        font-size: 13px;
+    }
+}
