@@ -1,0 +1,32 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "../styles/amazon/style.css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #FFFFFF;
+  --foreground: #0F1111;
+  --card: #FFFFFF;
+  --card-foreground: #0F1111;
+  --popover: #FFFFFF;
+  --popover-foreground: #0F1111;
+  --primary: #FFD814;
+  --primary-foreground: #0F1111;
+  --secondary: #232F3E;
+  --secondary-foreground: #FFFFFF;
+  --muted: #F0F2F2;
+  --muted-foreground: #565959;
+  --accent: #E77600;
+  --accent-foreground: #FFFFFF;
+  --destructive: #CC0C39;
+  --border: #D5D9D9;
+  --input: #888888;
+  --ring: #E77600;
+  --radius: 8px;
+
+  /* Brand-specific */
+  --color-brand-primary: #0F1111;
+  --color-brand-secondary: #232F3E;
+  --color-brand-accent: #FFD814;
+}
