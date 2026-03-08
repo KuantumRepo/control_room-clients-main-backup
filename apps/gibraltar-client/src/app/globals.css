@@ -1,0 +1,263 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-lato);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-destructive: var(--destructive);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+}
+
+:root {
+  --radius: 0.25rem;
+  /* 4px */
+  --background: #f5f6f8;
+  /* Gibraltar subtle blue-grey tint */
+  --foreground: #333333;
+  /* Gibraltar text dark */
+
+  /* Gibraltar Colors */
+  --primary: #bb282e;
+  /* Primary Red */
+  --primary-foreground: #ffffff;
+  --secondary: #A32025;
+  /* Secondary Red (Hover) */
+  --secondary-foreground: #ffffff;
+  --accent: #0076a8;
+  /* Primary Blue */
+  --accent-foreground: #ffffff;
+
+  --muted: #fafafa;
+  /* Info bg */
+  --muted-foreground: #4a4a4a;
+  /* Text gray */
+
+  --card: #ffffff;
+  --card-foreground: #333333;
+  --popover: #ffffff;
+  --popover-foreground: #333333;
+
+  --border: #e0e0e0;
+  --input: #e0e0e0;
+  --ring: #0076a8;
+
+  --destructive: #bb282e;
+  /* Primary red doubles as destructive */
+
+  --sidebar: #fafafa;
+  --sidebar-foreground: #333333;
+  --sidebar-primary: #bb282e;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e0e0e0;
+  --sidebar-accent-foreground: #333333;
+  --sidebar-border: #e0e0e0;
+  --sidebar-ring: #0076a8;
+}
+
+.dark {
+  /* Keeping safe defaults */
+  --background: #1f1f1f;
+  --foreground: #ffffff;
+  --card: #2a2a2a;
+  --card-foreground: #ffffff;
+  --popover: #2a2a2a;
+  --popover-foreground: #ffffff;
+  --primary: #bb282e;
+  --primary-foreground: #ffffff;
+  --secondary: #A32025;
+  --secondary-foreground: #ffffff;
+  --muted: #333333;
+  --muted-foreground: #aaaaaa;
+  --accent: #0076a8;
+  --accent-foreground: #ffffff;
+  --destructive: #bb282e;
+  --border: #444444;
+  --input: #444444;
+  --ring: #0076a8;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-weight: 400;
+    /* Lato regular */
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.2) 0%, rgba(220, 230, 240, 0.6) 100%);
+    background-attachment: fixed;
+  }
+}
+
+/* Mobile responsive override for vignette */
+@media (max-width: 900px) {
+  body {
+    background: #ffffff;
+  }
+}
+
+/* =========================================================================
+   GIBRALTAR LOADING SCREEN OVERLAY (BotGuard)
+   ========================================================================= */
+.cd-cover-layer {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  width: 100%;
+  z-index: 9999;
+  background-color: #f5f5f5;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.cd-cover-layer.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.cd-logo {
+  position: fixed;
+  z-index: 10000;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  top: 40%;
+  left: calc(50% - 5.6rem);
+  width: 11.3rem;
+  height: 10%;
+  max-height: 50px;
+  animation: animatezoom 0.8s forwards;
+}
+
+.cd-loading-bar {
+  position: fixed;
+  z-index: 10000;
+  left: 50%;
+  top: 50%;
+  height: 0.1rem;
+  width: 90%;
+  transform: translate3d(-50%, -50%, 0);
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.cd-loading-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--primary);
+  /* Matching brand */
+  transform-origin: left center;
+  animation: example 0.8s infinite alternate ease-in;
+}
+
+.se-pre-con.load-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  z-index: 10000;
+  background-color: var(--accent);
+  /* Bottom bar accent blue */
+}
+
+.se-pre-con.load-bar .bar {
+  display: inline-block;
+  position: absolute;
+  width: 0;
+  height: 100%;
+  left: 50%;
+  top: 0;
+}
+
+.se-pre-con.load-bar .bar:nth-child(1) {
+  background-color: var(--primary);
+  animation: loading 3s linear infinite;
+}
+
+.se-pre-con.load-bar .bar:nth-child(2) {
+  background-color: #585858;
+  animation: loading 3s linear 1s infinite;
+}
+
+.se-pre-con.load-bar .bar:nth-child(3) {
+  background-color: var(--primary);
+  animation: loading 3s linear 2s infinite;
+}
+
+@keyframes animatezoom {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  1% {
+    transform: scale(0.6);
+  }
+}
+
+@keyframes example {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes loading {
+  from {
+    left: 50%;
+    width: 0;
+    z-index: 100;
+  }
+
+  33.3333% {
+    left: 0;
+    width: 100%;
+    z-index: 10;
+  }
+
+  to {
+    left: 0;
+    width: 100%;
+  }
+}
